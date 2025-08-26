@@ -1,0 +1,17 @@
+@startuml
+actor Usuario
+boundary FormularioEdicao as "form-editar.html"
+control UpdateCarServlet as "UpdateCarServlet"
+entity CarRepository as "CarRepository"
+database JSON as "cars.json"
+
+Usuario -> FormularioEdicao : Preenche novos dados do carro\n e envia (POST /update-car)
+FormularioEdicao -> UpdateCarServlet : request.getParameter("id, name")
+UpdateCarServlet -> CarRepository : update(new Car(id, name))
+CarRepository -> JSON : Lê lista de carros
+JSON --> CarRepository : Retorna lista existente
+CarRepository -> JSON : Substitui carro pelo ID e grava lista
+JSON --> CarRepository : Confirma persistência
+CarRepository --> UpdateCarServlet : OK
+UpdateCarServlet -> Usuario : Redirect para /list-cars
+@enduml

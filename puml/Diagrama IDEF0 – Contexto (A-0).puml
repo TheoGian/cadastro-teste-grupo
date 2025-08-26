@@ -1,0 +1,26 @@
+@startuml
+!define RECTANGLE class
+skinparam class {
+  BackgroundColor White
+  ArrowColor Black
+  BorderColor Black
+}
+
+RECTANGLE "Sistema de Cadastro de Carros\n(A-0)" as A0
+
+' Entradas
+class "Dados do Carro\n(Nome, ID)" as Entrada
+Entrada -left-> A0 : Entrada
+
+' Saídas
+class "Arquivo JSON\n(cars.json)" as Saida
+A0 -right-> Saida : Saída
+
+' Controle
+class "Regras de Negócio\n(Validação, CRUD)" as Controle
+Controle -up-> A0 : Controle
+
+' Mecanismo
+class "Usuário via Navegador\n+ Servlets\n+ Gson" as Mecanismo
+Mecanismo -down-> A0 : Mecanismo
+@enduml
