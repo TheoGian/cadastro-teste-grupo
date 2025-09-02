@@ -1,0 +1,36 @@
+@startuml
+left to right direction
+actor Usuario
+
+rectangle "Sistema de Gestão (Cadastro e Pedidos)" {
+  usecase UC1 as "Cadastrar Cliente"
+  usecase UC2 as "Atualizar Cliente"
+  usecase UC3 as "Remover Cliente"
+  usecase UC4 as "Listar/Buscar Clientes"
+
+  usecase UC5 as "Cadastrar Produto"
+  usecase UC6 as "Atualizar Produto"
+  usecase UC7 as "Remover Produto"
+  usecase UC8 as "Listar/Buscar Produtos"
+
+  usecase UC9  as "Criar Pedido"
+  usecase UC10 as "Adicionar Item ao Pedido"
+  usecase UC11 as "Remover Item do Pedido"
+  usecase UC12 as "Listar Pedidos"
+}
+
+Usuario --> UC1
+Usuario --> UC2
+Usuario --> UC3
+Usuario --> UC4
+
+Usuario --> UC5
+Usuario --> UC6
+Usuario --> UC7
+Usuario --> UC8
+
+Usuario --> UC9
+Usuario --> UC10
+Usuario --> UC11
+Usuario --> UC12
+@enduml

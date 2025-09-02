@@ -1,0 +1,22 @@
+@startuml
+title IDEF0 - Diagrama de Contexto (A-0)
+
+rectangle "A0\nGerir Cadastros e Pedidos" as A0
+
+' Entradas (Input - esquerda, agrupadas)
+rectangle "Entradas\n- Dados de Cliente\n- Dados de Produto\n- Solicitação de Pedido\n- Ações do Usuário" as I
+I -right-> A0
+
+' Controles (Cima, agrupados)
+rectangle "Controles\n- Regras de Negócio\n- Políticas Organizacionais\n- Regras de Integridade" as C
+C -down-> A0
+
+' Mecanismos (Baixo, agrupados)
+rectangle "Mecanismos\n- Usuário/Operador\n- Aplicação Spring Boot\n- Banco MySQL\n- JPA/Hibernate" as M
+M -up-> A0
+
+' Saídas (Output - direita, agrupadas)
+rectangle "Saídas\n- Registros Persistidos\n- Confirmações ao Usuário\n- Relatórios e Listagens" as O
+A0 -right-> O
+
+@enduml

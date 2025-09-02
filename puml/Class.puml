@@ -1,70 +1,59 @@
 @startuml
-skinparam packageStyle rectangle
-
-package com.seuprojeto.cadastro {
-  class Main
-}
-
-package com.seuprojeto.cadastro.model {
+package com.example.cadastro.model {
   class Cliente {
-    - id: String
+    - id: Long
     - nome: String
     - email: String
     - telefone: String
-    + getId(): String
-    + getNome(): String
-    + getEmail(): String
-    + getTelefone(): String
-    + setId(id: String)
-    + setNome(nome: String)
-    + setEmail(email: String)
-    + setTelefone(telefone: String)
+  }
+
+  class Produto {
+    - id: Long
+    - nome: String
+    - preco: Double
+    - estoque: Integer
+  }
+
+  class PedidoItem {
+    - id: Long
+    - quantidade: Integer
+    - precoUnitario: Double
+    + getSubtotal(): Double
+  }
+
+  class Pedido {
+    - id: Long
+    - criadoEm: LocalDateTime
+    + getTotal(): Double
   }
 }
 
-package com.seuprojeto.cadastro.persistence {
-  class JsonStore<T> {
-    - gson: Gson
-    - listType: Type
-    - file: Path
-    + JsonStore(file: Path, clazz: Class<T>)
-    + loadAll(): List<T>
-@startuml
-package "br.com.carsoft.model" {
-    class Car {
-        - id : String
-        - name : String
-        + getId() : String
-        + setId(id:String) : void
-        + getName() : String
-        + setName(name:String) : void
-    }
+package com.example.cadastro {
+  class CadastroApplication
 }
 
-package "br.com.carsoft.repository" {
-    class CarRepository {
-        - FILE_PATH : String
-        - gson : Gson
-        - readFile() : List<Car>
-        - writeFile(List<Car>) : void
-        + findAll() : List<Car>
-        + save(Car) : void
-        + update(Car) : void
-        + delete(String) : void
-        + findById(String) : Car
-    }
+package com.example.cadastro.repository {
+  interface ClienteRepository
+  interface ProdutoRepository
+  interface PedidoRepository
+  interface PedidoItemRepository
 }
 
-package "br.com.carsoft.servlet" {
-    class CreateCarServlet
-    class ListCarsServlet
-    class UpdateCarServlet
-    class DeleteCarServlet
+package com.example.cadastro.service {
+  class ClienteService
+  class ProdutoService
+  class PedidoService
 }
 
-CarRepository --> Car : "manipula"
-CreateCarServlet --> CarRepository
-ListCarsServlet --> CarRepository
-UpdateCarServlet --> CarRepository
-DeleteCarServlet --> CarRepository
+' Relacionamentos
+Cliente "1" <-- "0..*" Pedido : cliente
+Pedido "1" o-- "*" PedidoItem : itens
+PedidoItem "*" --> "1" Produto : produto
+
+ClienteService --> ClienteRepository
+ProdutoService --> ProdutoRepository
+PedidoService --> PedidoRepository
+PedidoService --> ProdutoRepository
+PedidoService --> ClienteRepository
+
 @enduml
